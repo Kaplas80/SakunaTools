@@ -18,8 +18,6 @@ namespace SakunaTools.Converters
     /// </summary>
     public class CsvToPo : IConverter<BinaryFormat, Po>, IInitializer<CsvParameters>
     {
-        private readonly string translationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn";
-
         private CsvParameters parameters = new CsvParameters
         {
             FileExtension = ".csvtxt",
@@ -65,7 +63,7 @@ namespace SakunaTools.Converters
             po.Header.Extensions.Add("FileExtension", this.parameters.FileExtension);
 
             string[] fields = csvHeader.Split(',');
-            string[] translationFieldArray = this.translationFields.Split(',');
+            string[] translationFieldArray = SakunaTools.Constants.TranslationFields.Split(',');
             var translationIndexes = new int[translationFieldArray.Length];
             for (var i = 0; i < translationIndexes.Length; i++)
             {

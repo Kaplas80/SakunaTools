@@ -15,10 +15,8 @@ namespace SakunaTools.Converters
     /// <summary>
     /// Converts a PO file into a CSV.
     /// </summary>
-    public partial class PoToCsv : IConverter<Po, BinaryFormat>
+    public class PoToCsv : IConverter<Po, BinaryFormat>
     {
-        private readonly string translationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn";
-
         /// <summary>
         /// Converts a Po into a CSV.
         /// </summary>
@@ -46,7 +44,7 @@ namespace SakunaTools.Converters
             writer.WriteLine(csvHeader);
 
             string[] fields = csvHeader.Split(',');
-            string[] translationFieldArray = this.translationFields.Split(',');
+            string[] translationFieldArray = SakunaTools.Constants.TranslationFields.Split(',');
             var translationIndexes = new int[translationFieldArray.Length];
             for (var i = 0; i < translationIndexes.Length; i++)
             {
