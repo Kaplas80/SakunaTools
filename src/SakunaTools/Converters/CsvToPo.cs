@@ -18,10 +18,11 @@ namespace SakunaTools.Converters
     /// </summary>
     public class CsvToPo : IConverter<BinaryFormat, Po>, IInitializer<CsvParameters>
     {
+        private readonly string translationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn";
+
         private CsvParameters parameters = new CsvParameters
         {
             FileExtension = ".csvtxt",
-            TranslationFields = "English",
         };
 
         /// <summary>
@@ -61,12 +62,11 @@ namespace SakunaTools.Converters
             var poHeader = new PoHeader("Sakuna: Of Rice and Ruin", "dummy@dummy.com", "es");
             var po = new Po(poHeader);
             po.Header.Extensions.Add("CSVHeader", csvHeader);
-            po.Header.Extensions.Add("TranslationFields", this.parameters.TranslationFields);
             po.Header.Extensions.Add("FileExtension", this.parameters.FileExtension);
 
             string[] fields = csvHeader.Split(',');
-            string[] translationFields = this.parameters.TranslationFields.Split(',');
-            var translationIndexes = new int[translationFields.Length];
+            string[] translationFieldArray = this.translationFields.Split(',');
+            var translationIndexes = new int[translationFieldArray.Length];
             for (var i = 0; i < translationIndexes.Length; i++)
             {
                 translationIndexes[i] = -1;
@@ -74,7 +74,7 @@ namespace SakunaTools.Converters
 
             for (var i = 0; i < fields.Length; i++)
             {
-                int index = Array.IndexOf(translationFields, fields[i]);
+                int index = Array.IndexOf(translationFieldArray, fields[i]);
 
                 if (index != -1)
                 {
@@ -82,9 +82,9 @@ namespace SakunaTools.Converters
                 }
             }
 
-            if (translationIndexes.Any(x => x == -1))
+            if (translationIndexes.All(x => x == -1))
             {
-                throw new FormatException("File without all English fields.");
+                throw new FormatException("File without English fields.");
             }
 
             for (var i = 1; i < lines.Length; i++)
@@ -98,6 +98,11 @@ namespace SakunaTools.Converters
 
                 for (var j = 0; j < translationIndexes.Length; j++)
                 {
+                    if (translationIndexes[j] == -1)
+                    {
+                        continue;
+                    }
+
                     var entry = new PoEntry();
 
                     string original = split[translationIndexes[j]];
@@ -107,7 +112,7 @@ namespace SakunaTools.Converters
                         original = "<!empty>";
                     }
 
-                    entry.Context = $"{translationFields[j]}\n{lines[i]}";
+                    entry.Context = $"{translationFieldArray[j]}\n{lines[i]}";
                     entry.Original = original.Replace("\\1", ",").Replace("<NewLine>", "\n");
                     po.Add(entry);
                 }

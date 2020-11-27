@@ -13,10 +13,5 @@ namespace SakunaTools.Types
         /// Gets or sets the file extension.
         /// </summary>
         public string FileExtension { get; set; }
-
-        /// <summary>
-        /// Gets or sets the translatable fields (separated by comma).
-        /// </summary>
-        public string TranslationFields { get; set; }
     }
 }

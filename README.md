@@ -41,11 +41,11 @@ If the input is a `.tga` image generated with [BMFont](https://www.angelcode.com
 
 ### CSV file
 
-If the input is a `.csvtxt`, `.csvcr`, `.csvq` or `.csvwl`, the app will create a `.po` file withe the English texts.
+If the input is a `.csvtxt`, `.csvcr`, `.csvq`, `.csvwl` or `.csv`, the app will create a `.po` file withe the English texts.
 
 ### PO file
 
-If the input is a `.po` file, the app will create a `.csvtxt`, `.csvcr`, `.csvq` or `.csvwl` file to use in the game.  
+If the input is a `.po` file, the app will create a `.csvtxt`, `.csvcr`, `.csvq`, `.csvwl` or `.csv` file to use in the game.
 
 ## Credits
 * Thanks to Pleonex for [Yarhl](https://scenegate.github.io/Yarhl/).

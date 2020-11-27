@@ -83,6 +83,7 @@ namespace SakunaTools
                     case ".csvcr":
                     case ".csvq":
                     case ".csvwl":
+                    case ".csv":
                     {
                         if (string.IsNullOrEmpty(opts.Output))
                         {
@@ -220,31 +221,6 @@ namespace SakunaTools
             {
                 FileExtension = extension,
             };
-
-            switch (extension)
-            {
-                case ".csvtxt":
-                case ".csvq":
-                {
-                    parameters.TranslationFields = "English";
-                    break;
-                }
-
-                case ".csvcr":
-                {
-                    parameters.TranslationFields = "PostEn,NameEn";
-                    break;
-                }
-
-                case ".csvwl":
-                {
-                    parameters.TranslationFields = "NameEn,CommentEn,Floor_NameEn";
-                    break;
-                }
-
-                default:
-                    break;
-            }
 
             n.TransformWith<CsvToPo, CsvParameters>(parameters);
             n.TransformWith<Po2Binary>();

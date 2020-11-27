@@ -17,6 +17,8 @@ namespace SakunaTools.Converters
     /// </summary>
     public partial class PoToCsv : IConverter<Po, BinaryFormat>
     {
+        private readonly string translationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn";
+
         /// <summary>
         /// Converts a Po into a CSV.
         /// </summary>
@@ -41,17 +43,11 @@ namespace SakunaTools.Converters
             };
 
             string csvHeader = source.Header.Extensions["CSVHeader"];
-            var aux = "English";
-            if (source.Header.Extensions.ContainsKey("TranslationFields"))
-            {
-                aux = source.Header.Extensions["TranslationFields"];
-            }
-
             writer.WriteLine(csvHeader);
 
             string[] fields = csvHeader.Split(',');
-            string[] translationFields = aux.Split(',');
-            var translationIndexes = new int[translationFields.Length];
+            string[] translationFieldArray = this.translationFields.Split(',');
+            var translationIndexes = new int[translationFieldArray.Length];
             for (var i = 0; i < translationIndexes.Length; i++)
             {
                 translationIndexes[i] = -1;
@@ -59,7 +55,7 @@ namespace SakunaTools.Converters
 
             for (var i = 0; i < fields.Length; i++)
             {
-                int index = Array.IndexOf(translationFields, fields[i]);
+                int index = Array.IndexOf(translationFieldArray, fields[i]);
 
                 if (index != -1)
                 {
@@ -104,9 +100,9 @@ namespace SakunaTools.Converters
                     value = entry.Translated;
                 }
 
-                int index = Array.IndexOf(translationFields, field);
+                int index = Array.IndexOf(translationFieldArray, field);
 
-                if (index >= 0)
+                if (index >= 0 && translationIndexes[index] >= 0)
                 {
                     translations[context].Add(translationIndexes[index], value);
                 }
