@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\Standard.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCnEncoder.Net" Version="1.2.3" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yarhl\src\Yarhl.Media\Yarhl.Media.csproj" />
+    <ProjectReference Include="..\Yarhl\src\Yarhl\Yarhl.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Analyzers.props" />
+
+</Project>
