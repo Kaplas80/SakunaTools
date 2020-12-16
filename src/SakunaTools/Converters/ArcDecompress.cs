@@ -39,7 +39,7 @@ namespace SakunaTools.Converters
             };
 
             // Read the file header
-            ArcHeader header = reader.Read<ArcHeader>();
+            ArcHeader header = reader.Read<ArcHeader>() as ArcHeader;
             this.CheckHeader(header);
 
             switch (header.CompressionType)
