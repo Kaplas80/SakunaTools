@@ -53,5 +53,5 @@ If the input is a `.po` file, the app will create a `.csvtxt`, `.csvcr`, `.csvq`
 
 ## Credits
 * Thanks to Pleonex for [Yarhl](https://scenegate.github.io/Yarhl/).
-* Thanks to Megaflan for the NHTEX compression.
+* Thanks to Megaflan for finding the NHTEX compression.
 * Swizzle algorithm taken from KillzXGaming's [Switch-Toolbox](https://github.com/KillzXGaming/Switch-Toolbox).
