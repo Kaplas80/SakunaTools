@@ -45,7 +45,7 @@ namespace SakunaTools.Converters
             };
 
             // Read the file header
-            ArcHeader header = reader.Read<ArcHeader>();
+            ArcHeader header = reader.Read<ArcHeader>() as ArcHeader;
             this.CheckHeader(header);
 
             if (header.CompressionType == 0x02)
@@ -57,7 +57,7 @@ namespace SakunaTools.Converters
             int startData = 0x10 + (header.FileCount * 0x070);
             for (var i = 0; i < header.FileCount; i++)
             {
-                ArcFileInfo info = reader.Read<ArcFileInfo>();
+                ArcFileInfo info = reader.Read<ArcFileInfo>() as ArcFileInfo;
                 var binaryFormat = new BinaryFormat(source.Stream, startData + info.Offset, info.Size);
 
                 string path = info.FileName.Trim('\0').Replace("\\", "/");
