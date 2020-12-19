@@ -64,7 +64,7 @@ namespace SakunaTools
                             opts.Output = opts.Input.Replace(".nhtex", ".dds");
                         }
 
-                        ConvertToDDS(opts.Input, opts.Output, opts.Overwrite);
+                        ConvertToDDS(opts.Input, opts.Output, opts.Overwrite, opts.SwitchMode);
                         break;
                     }
 
@@ -75,7 +75,7 @@ namespace SakunaTools
                             opts.Output = opts.Input.Replace(".tga", ".nhtex");
                         }
 
-                        ConvertToNhtex(opts.Input, opts.Output, opts.Overwrite);
+                        ConvertToNhtex(opts.Input, opts.Output, opts.Overwrite, opts.SwitchMode);
                         break;
                     }
 
@@ -146,7 +146,7 @@ namespace SakunaTools
             n.Stream.WriteTo(output);
         }
 
-        private static void ConvertToDDS(string input, string output, bool overwrite)
+        private static void ConvertToDDS(string input, string output, bool overwrite, bool switchMode)
         {
             Console.WriteLine("Converting NHTEX to DDS");
 
@@ -167,11 +167,19 @@ namespace SakunaTools
             }
 
             Node n = NodeFactory.FromFile(input);
-            n.TransformWith<NhtexToDds>();
+            if (switchMode)
+            {
+                n.TransformWith<SwitchNhtexToDds>();
+            }
+            else
+            {
+                n.TransformWith<NhtexToDds>();
+            }
+
             n.Stream.WriteTo(output);
         }
 
-        private static void ConvertToNhtex(string input, string output, bool overwrite)
+        private static void ConvertToNhtex(string input, string output, bool overwrite, bool switchMode)
         {
             Console.WriteLine("Converting TGA to NHTEX");
 
@@ -192,7 +200,15 @@ namespace SakunaTools
             }
 
             Node n = NodeFactory.FromFile(input);
-            n.TransformWith<TgaToNhtex>();
+            if (switchMode)
+            {
+                n.TransformWith<TgaToSwitchNhtex>();
+            }
+            else
+            {
+                n.TransformWith<TgaToNhtex>();
+            }
+
             n.Stream.WriteTo(output);
         }
 
@@ -364,6 +380,9 @@ namespace SakunaTools
 
             [Option('o', "overwrite", HelpText = "Set to overwrite without asking.")]
             public bool Overwrite { get; set; }
+
+            [Option("switch", HelpText = "Read/Write files for Nintendo Switch")]
+            public bool SwitchMode { get; set; }
         }
     }
 }

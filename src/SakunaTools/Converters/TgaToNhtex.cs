@@ -58,6 +58,23 @@ namespace SakunaTools.Converters
 
             List<byte[]> mipmaps = encoder.EncodeToRawBytes(image);
 
+            return new BinaryFormat(this.Write((uint)image.Height, (uint)image.Width, mipmaps));
+        }
+
+        /// <summary>
+        /// Write the mipmaps to a DataStream.
+        /// </summary>
+        /// <param name="height">Image height (in pixels).</param>
+        /// <param name="width">Image width (in pixels).</param>
+        /// <param name="mipmaps">The list of mipmaps.</param>
+        /// <returns>The DataStream.</returns>
+        protected virtual DataStream Write(uint height, uint width, List<byte[]> mipmaps)
+        {
+            if (mipmaps == null)
+            {
+                throw new ArgumentNullException(nameof(mipmaps));
+            }
+
             DataStream outputDataStream = DataStreamFactory.FromMemory();
             var writer = new DataWriter(outputDataStream)
             {
@@ -77,8 +94,8 @@ namespace SakunaTools.Converters
             writer.Write(0x00);
             writer.Write(0x03);
 
-            writer.Write(image.Width);
-            writer.Write(image.Height);
+            writer.Write(width);
+            writer.Write(height);
             writer.Write(0x01);
             writer.Write(0x01);
 
@@ -93,7 +110,7 @@ namespace SakunaTools.Converters
             long acum = indexSize;
             for (var i = 0; i < mipmaps.Count; i++)
             {
-                int pitch = Math.Max(1, ((image.Width >> i) + 3) / 4) * 8;
+                uint pitch = Math.Max(1, ((width >> i) + 3) / 4) * 8;
                 writer.Write(pitch);
                 writer.Write(mipmaps[i].Length);
                 writer.Write(acum - (writer.Stream.Position - baseOffset));
@@ -109,7 +126,8 @@ namespace SakunaTools.Converters
 
             writer.Stream.Seek(0x18, SeekMode.Start);
             writer.Write(outputDataStream.Length - 0x30);
-            return new BinaryFormat(outputDataStream);
+
+            return outputDataStream;
         }
     }
 }
