@@ -38,7 +38,7 @@ namespace SakunaTools.Converters
 
              DataStream dataStream = DataStreamFactory.FromMemory();
 
-             var writer = new TextWriter(dataStream, Encoding.UTF8);
+             var writer = new TextDataWriter(dataStream, Encoding.UTF8);
 
              writer.WriteLine("# AngelCode Bitmap Font Generator configuration file");
              writer.WriteLine("fileVersion=1");
@@ -52,7 +52,7 @@ namespace SakunaTools.Converters
              return result;
         }
 
-        private static void WriteInfoBlock(InfoSection info, TextWriter writer)
+        private static void WriteInfoBlock(InfoSection info, TextDataWriter writer)
         {
             writer.WriteLine("# font settings");
             writer.WriteLine($"fontName={info.FontName}");
@@ -91,7 +91,7 @@ namespace SakunaTools.Converters
             writer.WriteLine();
         }
 
-        private static void WriteCommonBlock(CommonSection common, TextWriter writer)
+        private static void WriteCommonBlock(CommonSection common, TextDataWriter writer)
         {
             writer.WriteLine("# output file");
             writer.WriteLine($"outWidth={common.ScaleWidth}");
@@ -112,7 +112,7 @@ namespace SakunaTools.Converters
             writer.WriteLine();
         }
 
-        private static void WriteCharsBlock(IDictionary<uint, CharacterSection> chars, TextWriter writer)
+        private static void WriteCharsBlock(IDictionary<uint, CharacterSection> chars, TextDataWriter writer)
         {
             var selectedChars = chars.Keys.ToList();
             selectedChars.Sort();

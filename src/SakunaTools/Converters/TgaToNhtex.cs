@@ -124,7 +124,7 @@ namespace SakunaTools.Converters
                 writer.Write(mipmap);
             }
 
-            writer.Stream.Seek(0x18, SeekMode.Start);
+            writer.Stream.Seek(0x18, System.IO.SeekOrigin.Begin);
             writer.Write(outputDataStream.Length - 0x30);
 
             return outputDataStream;

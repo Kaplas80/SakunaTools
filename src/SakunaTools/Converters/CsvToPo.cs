@@ -49,7 +49,7 @@ namespace SakunaTools.Converters
             }
 
             source.Stream.Position = 0;
-            var reader = new Yarhl.IO.TextReader(source.Stream, Encoding.UTF8);
+            var reader = new Yarhl.IO.TextDataReader(source.Stream, Encoding.UTF8);
             string data = reader.ReadToEnd();
             data = data.Replace("\n", "<NewLine>", StringComparison.InvariantCulture);
 

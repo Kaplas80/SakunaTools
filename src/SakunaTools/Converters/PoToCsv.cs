@@ -35,7 +35,7 @@ namespace SakunaTools.Converters
 
             DataStream outputDataStream = DataStreamFactory.FromMemory();
 
-            var writer = new Yarhl.IO.TextWriter(outputDataStream, Encoding.UTF8)
+            var writer = new Yarhl.IO.TextDataWriter(outputDataStream, Encoding.UTF8)
             {
                 NewLine = "\r",
             };

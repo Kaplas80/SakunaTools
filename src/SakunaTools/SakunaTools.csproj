@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,17 +10,29 @@
     <PackageReference Include="BCnEncoder.Net" Version="1.2.3" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="K4os.Compression.LZ4" Version="1.2.6" />
+    <PackageReference Include="Yarhl" Version="3.1.1-preview.23" />
+    <PackageReference Include="Yarhl.Media" Version="3.1.1-preview.23" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Enums" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Yarhl\src\Yarhl.Media\Yarhl.Media.csproj" />
-    <ProjectReference Include="..\Yarhl\src\Yarhl\Yarhl.csproj" />
-  </ItemGroup>
-
   <Import Project="..\Analyzers.props" />
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="16.9.60">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="8.20.0.28934">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>

@@ -46,8 +46,8 @@ namespace SakunaTools.Converters
                     string path = node.Path.Replace(".arcinfo", string.Empty);
                     var dict = new Dictionary<string, int>();
 
-                    var reader = new TextReader(node.Stream);
-                    while (!reader.Stream.EndOfStream)
+                    var reader = new TextDataReader(node.Stream);
+                    while (!node.Stream.EndOfStream)
                     {
                         string line = reader.ReadLine();
                         if (string.IsNullOrEmpty(line))
