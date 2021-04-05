@@ -12,6 +12,6 @@ namespace SakunaTools
         /// <summary>
         /// Translatable fields in csv files.
         /// </summary>
-        public const string TranslationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn";
+        public const string TranslationFields = "English,PostEn,NameEn,CommentEn,Floor_NameEn,Enchant_NameEn";
     }
 }
