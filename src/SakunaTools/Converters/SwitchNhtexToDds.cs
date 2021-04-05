@@ -53,16 +53,16 @@ namespace SakunaTools.Converters
                 Endianness = EndiannessMode.LittleEndian,
             };
 
-            source.Stream.Seek(0x48, SeekMode.Start);
+            source.Stream.Seek(0x48, System.IO.SeekOrigin.Begin);
             long dataSize = reader.ReadInt64();
-            source.Stream.Seek(0x50, SeekMode.Start);
+            source.Stream.Seek(0x50, System.IO.SeekOrigin.Begin);
             uint width = reader.ReadUInt32();
             uint height = reader.ReadUInt32();
-            source.Stream.Seek(0x64, SeekMode.Start);
+            source.Stream.Seek(0x64, System.IO.SeekOrigin.Begin);
             uint numMipmaps = reader.ReadUInt32();
-            source.Stream.Seek(0x40, SeekMode.Start);
+            source.Stream.Seek(0x40, System.IO.SeekOrigin.Begin);
             long dataOffset = reader.ReadInt64() + 0x40;
-            source.Stream.Seek(dataOffset, SeekMode.Start);
+            source.Stream.Seek(dataOffset, System.IO.SeekOrigin.Begin);
             byte[] data = reader.ReadBytes((int)dataSize);
 
             DataStream outputDataStream = DataStreamFactory.FromMemory();
@@ -75,11 +75,11 @@ namespace SakunaTools.Converters
             writer.Write(DdsHeader);
             writer.Write(this.Deswizzle(width, height, numMipmaps, data));
 
-            writer.Stream.Seek(0x0C, SeekMode.Start);
+            writer.Stream.Seek(0x0C, System.IO.SeekOrigin.Begin);
             writer.Write(height);
             writer.Write(width);
             writer.Write(height / 4 * width / 4 * 8);
-            writer.Stream.Seek(0x1C, SeekMode.Start);
+            writer.Stream.Seek(0x1C, System.IO.SeekOrigin.Begin);
             writer.Write(numMipmaps);
 
             return new BinaryFormat(outputDataStream);

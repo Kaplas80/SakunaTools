@@ -99,10 +99,10 @@ namespace SakunaTools.Converters
                 writer.Write(swizzled);
             }
 
-            writer.Stream.Seek(0x18, SeekMode.Start);
+            writer.Stream.Seek(0x18, System.IO.SeekOrigin.Begin);
             writer.Write(outputDataStream.Length - 0x30);
 
-            writer.Stream.Seek(0x48, SeekMode.Start);
+            writer.Stream.Seek(0x48, System.IO.SeekOrigin.Begin);
             writer.Write(outputDataStream.Length - 0x68);
 
             return outputDataStream;
