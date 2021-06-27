@@ -76,6 +76,11 @@ namespace TranslationUpdater
 
                 // Find "field + id" in old Po
                 PoEntry oldEntry = oldPo.Entries.FirstOrDefault(x => x.Context.StartsWith($"{field}\n{id}"));
+                if (oldEntry == null && field == "English")
+                {
+                    oldEntry = oldPo.Entries.FirstOrDefault(x => x.Context.StartsWith($"{id}"));
+                }
+
                 if (oldEntry == null)
                 {
                     Console.WriteLine($"Translation for \"{field} {id}\" not found.");
