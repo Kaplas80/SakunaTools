@@ -15,7 +15,7 @@ Drag & drop a file onto the application exe.
 ### Advanced
 
 Open a command prompt and run:
-`SakunaTools.exe <input> <output> [-o|--overwrite] [--switch]`
+`SakunaTools.exe <input> <output> [-o|--overwrite] [--switch] [--no-compress]`
 
 ## Valid inputs
 
@@ -25,7 +25,7 @@ If the input is a `.arc` container, the app will extract it.
 
 ### Directory
 
-If the input is a directory, the app will create a `.arc` container with its files.
+If the input is a directory, the app will create a `.arc` container with its files. By default, it will compress the .arc, but you can leave it uncompressed using `--no-compress`
 
 ### Font file
 
@@ -52,6 +52,7 @@ If the input is a `.csvtxt`, `.csvcr`, `.csvq`, `.csvwl` or `.csv`, the app will
 If the input is a `.po` file, the app will create a `.csvtxt`, `.csvcr`, `.csvq`, `.csvwl` or `.csv` file to use in the game.
 
 ## Credits
+
 * Thanks to Pleonex for [Yarhl](https://scenegate.github.io/Yarhl/).
 * Thanks to Megaflan for finding the NHTEX compression.
 * Swizzle algorithm taken from KillzXGaming's [Switch-Toolbox](https://github.com/KillzXGaming/Switch-Toolbox).

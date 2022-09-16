@@ -38,7 +38,7 @@ namespace SakunaTools
                     opts.Output = string.Concat(opts.Input, ".arc");
                 }
 
-                BuildArc(opts.Input, opts.Output, opts.Overwrite);
+                BuildArc(opts.Input, opts.Output, opts.Overwrite, opts.NoCompress);
             }
             else
             {
@@ -324,7 +324,7 @@ namespace SakunaTools
             }
         }
 
-        private static void BuildArc(string input, string output, bool overwrite)
+        private static void BuildArc(string input, string output, bool overwrite, bool noCompress)
         {
             Console.WriteLine("Building ARC");
 
@@ -362,7 +362,11 @@ namespace SakunaTools
                 },
                 true);
             n.TransformWith<ArcWriter>();
-            n.TransformWith<ArcCompress>();
+            if (!noCompress)
+            {
+                n.TransformWith<ArcCompress>();
+            }
+
             n.Stream.WriteTo(output);
         }
 
@@ -383,6 +387,9 @@ namespace SakunaTools
 
             [Option("switch", HelpText = "Read/Write files for Nintendo Switch")]
             public bool SwitchMode { get; set; }
+
+            [Option("no-compress", Default = false, HelpText = "Skip ARC compression")]
+            public bool NoCompress { get; set; }
         }
     }
 }
